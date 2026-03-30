@@ -26,6 +26,7 @@ describe('AuthService', () => {
     });
 
     it('should use the configured admin credentials by default', async () => {
+      // I pass config values explicitly here to prove tests use the same source as default auth.
       const response = await authService.createToken(
         config.adminUsername,
         config.adminPassword

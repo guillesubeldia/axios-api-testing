@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "NODE_OPTIONS='--import tsx' mocha 'src/tests/**/*.test.ts' --timeout 30000",
-    "test:auth": "NODE_OPTIONS='--import tsx' mocha 'src/tests/auth.test.ts' --timeout 30000",
-    "test:booking": "NODE_OPTIONS='--import tsx' mocha 'src/tests/booking.test.ts' --timeout 30000"
+    "test": "cross-env NODE_OPTIONS=--import=tsx mocha 'src/tests/**/*.test.ts' --timeout 30000",
+    "test:auth": "cross-env NODE_OPTIONS=--import=tsx mocha 'src/tests/auth.test.ts' --timeout 30000",
+    "test:booking": "cross-env NODE_OPTIONS=--import=tsx mocha 'src/tests/booking.test.ts' --timeout 30000"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "@types/mocha": "^10.0.10",
     "@types/node": "^25.5.0",
     "chai": "^6.2.2",
+    "cross-env": "^10.1.0",
     "mocha": "^11.3.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",

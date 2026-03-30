@@ -5,13 +5,16 @@ export class ApiClient {
   protected client: AxiosInstance;
 
   constructor(token?: string) {
+    // I clone base headers from config to keep request defaults in one place.
     const headers: Record<string, string> = { ...config.headers };
 
     if (token) {
+      // This API expects auth in a Cookie header, not in Authorization Bearer.
       headers['Cookie'] = `token=${token}`;
     }
 
     this.client = axios.create({
+      // baseURL comes from config.ts, which reads from env (or fallback values).
       baseURL: config.baseUrl,
       headers,
       timeout: 10000,

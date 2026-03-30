@@ -21,6 +21,7 @@ describe('BookingService', () => {
   };
 
   before(async () => {
+    // I create the token once and reuse it, so every mutating booking call is authenticated.
     const authService = new AuthService();
     const authResponse = await authService.createToken();
     authToken = authResponse.data.token;
@@ -59,6 +60,7 @@ describe('BookingService', () => {
       expect(response.data.booking.totalprice).to.equal(sampleBooking.totalprice);
       expect(response.data.booking.depositpaid).to.equal(sampleBooking.depositpaid);
 
+      // I store this id to chain the rest of CRUD tests against the same booking.
       createdBookingId = response.data.bookingid;
     });
   });
@@ -122,6 +124,7 @@ describe('BookingService', () => {
         await bookingService.getBooking(createdBookingId);
         expect.fail('Expected request to fail with 404');
       } catch (error: unknown) {
+        // I assert the API status directly from axios error response, not from a success payload.
         const axiosError = error as { response?: { status: number } };
         expect(axiosError.response?.status).to.equal(404);
       }
